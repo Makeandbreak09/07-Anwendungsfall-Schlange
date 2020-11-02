@@ -22,6 +22,7 @@ public class Queue<ContentType> {
         public Node getNext(){
             return next;
         }
+        
     }
 
     private Node head;
