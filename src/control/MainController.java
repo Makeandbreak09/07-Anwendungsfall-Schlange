@@ -24,10 +24,23 @@ public class MainController {
      */
     public String[] showAllTrays(){
         //TODO: 06 - Bei einer Queue ist es unüblich, auf alle Daten innerhalb der Queue zuzugreifen. Gerade das ist hier aber nötig! Hier muss mit einem "Trick" gearbeitet werden, ohne die Klasse Queue zu überarbeiten.
-        String[] output = new String[1];
-        if(trayQueue != null){
-            output[0] = trayQueue.getTimeAndInfo();
+        Queue<Tray> help = new Queue<>();
+        String[] output = new String[0];
+        if(!trayQueue.isEmpty()){
+            while(!trayQueue.isEmpty()){
+                String[] output2 = new String[output.length+1];
+                for(int i = 0; i < output.length; i++) {
+                    output2[i] = output[i];
+                }
+                output2[output2.length-1] = trayQueue.front().getTimeAndInfo();
+                output = output2;
+
+                help.enqueue(trayQueue.front());
+                trayQueue.dequeue();
+            }
+            trayQueue = help;
         }else{
+            output = new String[1];
             output[0] = "Nüx da! :O";
         }
         return output;
@@ -39,8 +52,8 @@ public class MainController {
      */
     public String addNewTray(){
         //TODO: 03 - Hinzufügen von Objekten in die Schlange. Aktuell wird nur die einzelne Referenz neu gesetzt.
-        trayQueue = new Tray();
-        return trayQueue.getTimeAndInfo();
+        trayQueue.enqueue(new Tray());
+        return trayQueue.front().getTimeAndInfo();
     }
 
     /**
@@ -49,9 +62,9 @@ public class MainController {
      */
     public String releaseTray(){
         //TODO: 05 - Das vorderste Tray-Objekt wird entfernt.
-        if(trayQueue != null){
-            String output = trayQueue.getTimeAndInfo();
-            trayQueue = null;
+        if(!trayQueue.isEmpty()){
+            String output = trayQueue.front().getTimeAndInfo();
+            trayQueue.dequeue();
             return output;
         }
         return "---";
@@ -64,7 +77,9 @@ public class MainController {
      */
     public String getInfoOfFirst(){
         //TODO: 04 - Ausgabe der Informationen zum vordersten Objekt.
-        if(trayQueue != null) return trayQueue.toString();
+        if(!trayQueue.isEmpty()){
+            return trayQueue.front().toString();
+        }
         return "---";
     }
 }

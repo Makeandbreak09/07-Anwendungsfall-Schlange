@@ -53,4 +53,17 @@ public class Queue<ContentType> {
             }
         }
     }
+
+    public void dequeue(){
+        if(!this.isEmpty()){
+            head = head.getNext();
+        }
+    }
+
+    public ContentType front(){
+        if(!this.isEmpty()){
+            return head.getContent();
+        }
+        return null;
+    }
 }
