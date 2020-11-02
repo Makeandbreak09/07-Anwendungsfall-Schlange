@@ -1,5 +1,6 @@
 package control;
 
+import model.Queue;
 import model.Tray;
 
 /**
@@ -7,13 +8,14 @@ import model.Tray;
  */
 public class MainController {
 
-    private Tray myOnlyTray; //TODO: 02 - Sobald die Queue implementiert ist, wird der Controller um die Datenstruktur erweitert. D.h. aus einer Referenz auf ein einzelnes Objekt, wird eine Refernz auf ein Objekt der Klasse Queue zur Verwaltung von vielen Tray-Objekten.
+    private Queue<Tray> trayQueue; //TODO: 02 - Sobald die Queue implementiert ist, wird der Controller um die Datenstruktur erweitert. D.h. aus einer Referenz auf ein einzelnes Objekt, wird eine Refernz auf ein Objekt der Klasse Queue zur Verwaltung von vielen Tray-Objekten.
 
     /**
      * Ich bin kein Konstrkutor. Ich steh' hier nur so rum!
      */
     public MainController(){
         //Hier muss später eine Initialisierung der Queue stattfinden.
+        trayQueue = new Queue<>();
     }
 
     /**
@@ -23,8 +25,8 @@ public class MainController {
     public String[] showAllTrays(){
         //TODO: 06 - Bei einer Queue ist es unüblich, auf alle Daten innerhalb der Queue zuzugreifen. Gerade das ist hier aber nötig! Hier muss mit einem "Trick" gearbeitet werden, ohne die Klasse Queue zu überarbeiten.
         String[] output = new String[1];
-        if(myOnlyTray != null){
-            output[0] = myOnlyTray.getTimeAndInfo();
+        if(trayQueue != null){
+            output[0] = trayQueue.getTimeAndInfo();
         }else{
             output[0] = "Nüx da! :O";
         }
@@ -37,8 +39,8 @@ public class MainController {
      */
     public String addNewTray(){
         //TODO: 03 - Hinzufügen von Objekten in die Schlange. Aktuell wird nur die einzelne Referenz neu gesetzt.
-        myOnlyTray = new Tray();
-        return myOnlyTray.getTimeAndInfo();
+        trayQueue = new Tray();
+        return trayQueue.getTimeAndInfo();
     }
 
     /**
@@ -47,9 +49,9 @@ public class MainController {
      */
     public String releaseTray(){
         //TODO: 05 - Das vorderste Tray-Objekt wird entfernt.
-        if(myOnlyTray != null){
-            String output = myOnlyTray.getTimeAndInfo();
-            myOnlyTray = null;
+        if(trayQueue != null){
+            String output = trayQueue.getTimeAndInfo();
+            trayQueue = null;
             return output;
         }
         return "---";
@@ -62,7 +64,7 @@ public class MainController {
      */
     public String getInfoOfFirst(){
         //TODO: 04 - Ausgabe der Informationen zum vordersten Objekt.
-        if(myOnlyTray != null) return myOnlyTray.toString();
+        if(trayQueue != null) return trayQueue.toString();
         return "---";
     }
 }
