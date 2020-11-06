@@ -52,8 +52,9 @@ public class MainController {
      */
     public String addNewTray(){
         //TODO: 03 - Hinzufügen von Objekten in die Schlange. Aktuell wird nur die einzelne Referenz neu gesetzt.
-        trayQueue.enqueue(new Tray());
-        return trayQueue.front().getTimeAndInfo();
+        Tray newT = new Tray();
+        trayQueue.enqueue(newT);
+        return newT.getTimeAndInfo();
     }
 
     /**
